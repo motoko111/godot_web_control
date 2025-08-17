@@ -1,2 +1,4 @@
 # godot_web_control
-Webビルドのときに画面の指定範囲にhtmlを表示するControl
+Webビルドのときに画面の指定範囲にhtmlを表示するControl。
+Webビルド以外では動きません。
+最前面かゲーム画面の後ろにしか埋め込んだhtmlは表示できません。

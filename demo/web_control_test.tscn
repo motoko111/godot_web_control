@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://72q7j2uxirkr"]
+
+[ext_resource type="Script" uid="uid://diwc2q36v2een" path="res://demo/web_control_test.gd" id="1_e6877"]
+[ext_resource type="Script" uid="uid://crl4m5oergv5d" path="res://addons/web_control/web_control.gd" id="2_bonmh"]
+
+[node name="WebControlTest" type="Control" node_paths=PackedStringArray("button", "delete_button", "web_control", "web_control2", "web_control3")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e6877")
+button = NodePath("ScrollContainer/VBoxContainer/Button")
+delete_button = NodePath("ScrollContainer/VBoxContainer/Delete")
+web_control = NodePath("ScrollContainer/VBoxContainer/WebControl")
+web_control2 = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/WebControl2")
+web_control3 = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/WebControl3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close/Open"
+
+[node name="Delete" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "delete"
+
+[node name="WebControl" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_bonmh")
+div_id = "custom-div-header"
+background_color = Color(1, 1, 1, 1)
+html = "<div id=\"color-box\" style=\"width:100%;height:100%\">header</div>"
+init_javascript = "const box = document.getElementById(\"color-box\");
+    function animate() {
+      const t = Date.now() * 0.02; 
+      const hue = t % 360;
+      box.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();"
+metadata/_custom_type_script = "uid://crl4m5oergv5d"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WebControl2" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_bonmh")
+div_id = "custom-div-body1"
+html = "<textarea id=\"textarea\" style=\"width:100%;height:100%\"></textarea>"
+init_javascript = "let  textarea = document.getElementById('textarea');
+textarea.addEventListener(\"input\", (e) => {
+ GodotFunctions.on_textarea_changed(e.target.value);
+  });"
+metadata/_custom_type_script = "uid://crl4m5oergv5d"
+
+[node name="WebControl3" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_bonmh")
+div_id = "custom-div-body2"
+html = "<iframe
+  id=\"inlineFrameExample\"
+  title=\"Inline Frame Example\"
+  width=\"100%\"
+  height=\"100%\"
+  src=\"https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&amp;layer=mapnik\">
+</iframe>"
+metadata/_custom_type_script = "uid://crl4m5oergv5d"
