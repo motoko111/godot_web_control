@@ -1,0 +1,2 @@
+# godot_web_control
+Webビルドのときに画面の指定範囲にhtmlを表示するControl
